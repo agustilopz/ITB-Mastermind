@@ -49,8 +49,19 @@ main{
     width: 8%;
     cursor: pointer;    
 }
+
+.w80{
+    width: 80%;
+}
+.w20 {
+    width: 20%;
+}
+
 .w90{
     width: 90%;
+}
+.w10{
+    width: 10%;
 }
 .w100{
     width: 100%;

@@ -24,12 +24,13 @@ function init() {
 
     //2. Crea todas las filas según el número de intentos.
     let contenedorResultado = document.getElementById('Result');
-    //for(let i = 1; i<=MAX_INTENTOS;i++){
+    for(let i = 1; i<=MAX_INTENTOS;i++){
         let fila = document.createElement('div');
+        fila.setAttribute("id",`row${i}`);
         fila.setAttribute("class","w100 flex wrap");
 
         let divColores = document.createElement('div');
-        divColores.setAttribute("class","w75 flex wrap")
+        divColores.setAttribute("class","w80 flex wrap")
         for(let j = 1; j<=4; j++) {
         let divCuadrado = document.createElement('div');
         divCuadrado.setAttribute("class","w25");
@@ -40,28 +41,22 @@ function init() {
         }
 
         let divPistas = document.createElement('div');
-        divPistas.setAttribute("class","w25 flex wrap");
+        divPistas.setAttribute("class","w20 flex wrap");
         for (let x = 1; x<=4; x++) {
             let divCirculo = document.createElement('div');
-            divCirculo.setAttribute("class","w50 h40");
+            divCirculo.setAttribute("class","w50 flex center");
             let circulosPistas = document.createElement('div');
             circulosPistas.setAttribute("class", "cercleResult flex");
             divCirculo.appendChild(circulosPistas);
             divPistas.appendChild(divCirculo);
         }
-        
-
-        //cuadradoColorUsuario.setAttribute("id",`i${i}c{${j}`)
-
-        
+                
         fila.appendChild(divColores);
         fila.appendChild(divPistas);
 
         contenedorResultado.appendChild(fila);
 
-
-
-    //}
+    }
 }
 
 function numeroRandom(min, max) {
