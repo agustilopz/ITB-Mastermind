@@ -71,6 +71,44 @@ function numeroRandom(min, max) {
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
+    intento++
+    /*
+    for(let i=0;i<MAX_COMBI_COLORES;i++){
+        if(userCombi[i]===master[i]){
+            aciertos++
+        }
+    }
+        */
+
+    let filaPadre= document.getElementById(`row${intento}`);
+    console.log(`row${intento}`);
+    let contenedorColores = filaPadre.children[0];
+    let contenedorPistas = filaPadre.children[1];
+    for(let i=0;i<MAX_COMBI_COLORES;i++) {
+        let cuadrado=contenedorColores.children[i];
+        cuadrado.children[0].style.backgroundColor=userCombi[i];
+
+        let circulo=contenedorPistas.children[i];
+        
+
+        if(userCombi[i]===master[i]){
+            aciertos++
+            circulo.children[0].style.backgroundColor=BLACK;
+        }else{
+            if(master.includes(userCombi[i])) {
+                circulo.children[0].style.backgroundColor=WHITE;
+            } else {
+                circulo.children[0].style.backgroundColor=GREY;
+            }
+        }
+
+    }
+
+    let userInputColor = document.getElementById('combiText');
+    userInputColor.value="";
+    userCombi.length=0;
+
+
 }
 
 /** Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
