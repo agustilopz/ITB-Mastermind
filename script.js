@@ -104,9 +104,25 @@ function Comprobar() {
 
     }
 
+    let info = document.getElementById('info');
+    if(aciertos===4){
+        info.textContent="Felicidades, has ganado!"
+
+        let masterElementoPadre = document.getElementById('master').children[0];
+        for(let i = 0; i<MAX_COMBI_COLORES; i++) {
+            masterElementoPadre.children[i].children[0].style.backgroundColor=master[i];
+        }
+
+
+    }else {
+        info.textContent=`Intento ${intento}: Has acertado ${aciertos} colores. Vuelve a intenarlo!`
+    }
+
+
     let userInputColor = document.getElementById('combiText');
     userInputColor.value="";
     userCombi.length=0;
+    aciertos=0;
 
 
 }
