@@ -15,47 +15,45 @@ var aciertos = 0;
 
 function init() {
     //1. Genera el código random del master
-    //console.log(random)
-    for(let i = 1; i<=4; i++) {
-        let random  = numeroRandom(0,COLORS.length-1)
+    for (let i = 1; i <= 4; i++) {
+        let random = numeroRandom(0, COLORS.length - 1)
         master.push(COLORS[random])
     }
     console.log(master)
 
     //2. Crea todas las filas según el número de intentos.
     let contenedorResultado = document.getElementById('Result');
-    for(let i = 1; i<=MAX_INTENTOS;i++){
+    for (let i = 1; i <= MAX_INTENTOS; i++) {
         let fila = document.createElement('div');
-        fila.setAttribute("id",`row${i}`);
-        fila.setAttribute("class","w100 flex wrap");
+        fila.setAttribute("id", `row${i}`);
+        fila.setAttribute("class", "w100 flex wrap");
 
         let divColores = document.createElement('div');
-        divColores.setAttribute("class","w80 flex wrap")
-        for(let j = 1; j<=4; j++) {
-        let divCuadrado = document.createElement('div');
-        divCuadrado.setAttribute("class","w25");
-        let cuadradoColorUsuario = document.createElement('div');
-        cuadradoColorUsuario.setAttribute("class","celUserCombi flex");
-        divCuadrado.appendChild(cuadradoColorUsuario);
-        divColores.appendChild(divCuadrado);
+        divColores.setAttribute("class", "w80 flex wrap")
+        for (let j = 1; j <= 4; j++) {
+            let divCuadrado = document.createElement('div');
+            divCuadrado.setAttribute("class", "w25");
+            let cuadradoColorUsuario = document.createElement('div');
+            cuadradoColorUsuario.setAttribute("class", "celUserCombi flex");
+            divCuadrado.appendChild(cuadradoColorUsuario);
+            divColores.appendChild(divCuadrado);
         }
 
         let divPistas = document.createElement('div');
-        divPistas.setAttribute("class","w20 flex wrap");
-        for (let x = 1; x<=4; x++) {
+        divPistas.setAttribute("class", "w20 flex wrap");
+        for (let x = 1; x <= 4; x++) {
             let divCirculo = document.createElement('div');
-            divCirculo.setAttribute("class","w50 flex center");
+            divCirculo.setAttribute("class", "w50 flex center");
             let circulosPistas = document.createElement('div');
             circulosPistas.setAttribute("class", "cercleResult flex");
             divCirculo.appendChild(circulosPistas);
             divPistas.appendChild(divCirculo);
         }
-                
+
         fila.appendChild(divColores);
         fila.appendChild(divPistas);
 
         contenedorResultado.appendChild(fila);
-
     }
 }
 
@@ -66,81 +64,114 @@ function numeroRandom(min, max) {
 }
 
 
-
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
-    intento++
-    /*
-    for(let i=0;i<MAX_COMBI_COLORES;i++){
-        if(userCombi[i]===master[i]){
-            aciertos++
-        }
+    if(userCombi.length<4) {
+        let info = document.getElementById('info');
+        info.textContent = "Tienes que introducir los 4 colores antes de comprobar.";
+        let colorInfo = info.parentNode
+        colorInfo.style.borderColor = "red";
+        colorInfo.style.backgroundColor = "red";
     }
-        */
 
-    let filaPadre= document.getElementById(`row${intento}`);
-    console.log(`row${intento}`);
-    let contenedorColores = filaPadre.children[0];
-    let contenedorPistas = filaPadre.children[1];
-    for(let i=0;i<MAX_COMBI_COLORES;i++) {
-        let cuadrado=contenedorColores.children[i];
-        cuadrado.children[0].style.backgroundColor=userCombi[i];
+    else {
 
-        let circulo=contenedorPistas.children[i];
-        
 
-        if(userCombi[i]===master[i]){
-            aciertos++
-            circulo.children[0].style.backgroundColor=BLACK;
-        }else{
-            if(master.includes(userCombi[i])) {
-                circulo.children[0].style.backgroundColor=WHITE;
+    if (intento < 10 && aciertos < 4) {
+
+        intento++
+
+        let filaPadre = document.getElementById(`row${intento}`);
+        let contenedorColores = filaPadre.children[0];
+        let contenedorPistas = filaPadre.children[1];
+        for (let i = 0; i < MAX_COMBI_COLORES; i++) {
+            let cuadrado = contenedorColores.children[i];
+            cuadrado.children[0].style.backgroundColor = userCombi[i];
+
+            let circulo = contenedorPistas.children[i];
+
+            if (userCombi[i] === master[i]) {
+                aciertos++
+                circulo.children[0].style.backgroundColor = BLACK;
             } else {
-                circulo.children[0].style.backgroundColor=GREY;
+                if (master.includes(userCombi[i])) {
+                    circulo.children[0].style.backgroundColor = WHITE;
+                } else {
+                    circulo.children[0].style.backgroundColor = GREY;
+                }
             }
         }
 
-    }
+    
 
     let info = document.getElementById('info');
-    if(aciertos===4){
-        info.textContent="Felicidades, has ganado!"
+    let masterElementoPadre = document.getElementById('master').children[0];
+    if (aciertos === 4) {
+        //alert("Felicidades, has ganado!")
+        info.textContent = "Felicidades, has ganado!";
 
-        let masterElementoPadre = document.getElementById('master').children[0];
-        for(let i = 0; i<MAX_COMBI_COLORES; i++) {
-            masterElementoPadre.children[i].children[0].style.backgroundColor=master[i];
+        let colorInfo = info.parentNode
+        colorInfo.style.backgroundColor = "green";
+        colorInfo.style.borderColor = "green";
+
+
+        for (let i = 0; i < MAX_COMBI_COLORES; i++) {
+            masterElementoPadre.children[i].children[0].style.backgroundColor = master[i];
+        }
+
+    } else if (aciertos != 4 && intento >= 10) {
+        //alert("Has consumido los 10 intentos disponibles. Has perdido!")
+        info.textContent = "GAME OVER. Has perdido!";
+        let colorInfo = info.parentNode
+        colorInfo.style.borderColor = "red";
+        colorInfo.style.backgroundColor = "red";
+        for (let i = 0; i < MAX_COMBI_COLORES; i++) {
+            masterElementoPadre.children[i].children[0].style.backgroundColor = master[i]; 
         }
 
 
-    }else {
-        info.textContent=`Intento ${intento}: Has acertado ${aciertos} colores. Vuelve a intenarlo!`
+    } else {
+        info.textContent = `Intento ${intento}/${MAX_INTENTOS}: Has acertado ${aciertos} colores. Vuelve a intenarlo!`
+        let colorInfo = info.parentNode
+        colorInfo.style.borderColor = "#1aa1f0";
+        colorInfo.style.backgroundColor = "#1aa1f0";
     }
 
+    //console.log("Master:" + master)
+    //console.log("User combi:" + userCombi)
+    //console.log("Master igual a user combi?" + master === userCombi)
+    //console.log("Intentos:" + intento)
+    //console.log("Aciertos:" + aciertos)
 
-    let userInputColor = document.getElementById('combiText');
-    userInputColor.value="";
-    userCombi.length=0;
-    aciertos=0;
-
+    if (aciertos !== 4) {
+        let userInputColor = document.getElementById('combiText');
+        userInputColor.value = "";
+        userCombi.length = 0;
+        aciertos = 0;
+    }
+}
+}
 
 }
 
 /** Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
 function añadeColor(color) {
 
-    if(userCombi.length<MAX_COMBI_COLORES) {
+    if (intento < 10 && aciertos < 4) {
 
-    let userInputColor = document.getElementById('combiText');
-    if(userCombi.length<1) userInputColor.value+= color
-    else userInputColor.value += " - " + color
+        if (userCombi.length < MAX_COMBI_COLORES) {
 
-    userCombi.push(color);
+            let userInputColor = document.getElementById('combiText');
+            if (userCombi.length < 1) userInputColor.value += color
+            else userInputColor.value += " - " + color
+
+            userCombi.push(color);
+
+        }
 
     }
-
-    //console.log(userCombi)
 
 }
 
