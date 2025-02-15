@@ -4,12 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/icon.png" type="image/png">
     <link rel="stylesheet" href="./style.css">
     <script src="script.js" defer></script>
-    <title>Mastermind</title>
+    <title>Mastermind - Agustí López</title>
 </head>
 
 <body class="w100" onload="init()">
+
+    <!-- --------------------------------Extra------------------------------------->
+    <div id="dialog">
+        <dialog id="hasGanado" class="dialog">
+            <div>
+                <h2>¡Felicidades! ¡Has ganado!</h2>
+            </div>
+            <div class="dialog-buttons">
+                <button onclick="location.reload()">Volver a jugar</button>
+                <button onclick="closeModal('hasGanado')">Ver los resultados</button>
+            </div>
+    
+            <h3>Número de intentos: <span id="intentos">0</span></h3>
+    
+        
+            <div id="result-ganado" class="w100 flex wrap center">
+                <div class="w100 flex wrap">
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                </div>
+            </div>
+        
+        </dialog>
+    
+        <dialog id="gameOver" class="dialog">
+            <div>
+                <h2>¡Game Over! ¡Has perdido!</h2>
+            </div>
+            <div class="dialog-buttons">
+                <button onclick="location.reload()">Volver a jugar</button>
+                <button onclick="closeModal('gameOver')">Ver los resultados</button>
+            </div>
+    
+            <h3>Número máximo de intentos superado (10)</h3>
+
+            <div id="result-perdido" class="w100 flex wrap center">
+                <div class="w100 flex wrap">
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                    <div class="w25">
+                        <div class="cercleResult flex"></div>
+                    </div>
+                </div>
+            </div>
+    
+        </dialog>
+    </div>
+    <!-- -------------------------------------------------------------------------->
+
     <main class="w100">
         <div class="bloqueado">
             <h1>Mastermind</h1>

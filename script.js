@@ -111,6 +111,7 @@ function Comprobar() {
     if (aciertos === 4) {
         //alert("Felicidades, has ganado!")
         info.textContent = "Felicidades, has ganado!";
+        hasGanado();
 
         let colorInfo = info.parentNode
         colorInfo.style.backgroundColor = "green";
@@ -118,17 +119,22 @@ function Comprobar() {
 
 
         for (let i = 0; i < MAX_COMBI_COLORES; i++) {
-            masterElementoPadre.children[i].children[0].style.backgroundColor = master[i];
+            //masterElementoPadre.children[i].children[0].style.backgroundColor = master[i];
+
+            masterElementoPadre.children[i].children[0].setAttribute("id",master[i]);
         }
 
     } else if (aciertos != 4 && intento >= 10) {
         //alert("Has consumido los 10 intentos disponibles. Has perdido!")
         info.textContent = "GAME OVER. Has perdido!";
+        gameOver();
         let colorInfo = info.parentNode
         colorInfo.style.borderColor = "red";
         colorInfo.style.backgroundColor = "red";
         for (let i = 0; i < MAX_COMBI_COLORES; i++) {
-            masterElementoPadre.children[i].children[0].style.backgroundColor = master[i]; 
+            //masterElementoPadre.children[i].children[0].style.backgroundColor = master[i]; 
+
+            masterElementoPadre.children[i].children[0].setAttribute("id",master[i]);
         }
 
 
@@ -138,6 +144,21 @@ function Comprobar() {
         colorInfo.style.borderColor = "#1aa1f0";
         colorInfo.style.backgroundColor = "#1aa1f0";
     }
+
+   
+    let combinacionMasterPadreG = document.getElementById('result-ganado').children[0];
+    let combinacionMasterPadreP = document.getElementById('result-perdido').children[0];
+
+
+
+    for (let i = 0; i < MAX_COMBI_COLORES; i++) {
+        //masterElementoPadre.children[i].children[0].style.backgroundColor = master[i]; 
+
+        combinacionMasterPadreG.children[i].children[0].setAttribute("id",master[i]);
+        combinacionMasterPadreP.children[i].children[0].setAttribute("id",master[i]);
+    }
+        
+
 
     //console.log("Master:" + master)
     //console.log("User combi:" + userCombi)
@@ -207,3 +228,45 @@ const ROW_RESULT = `<div class="rowResult w100 flex wrap">
        </div>
     <div>
 </div>`;
+
+const SHOW_COMBINATION = `<div class="w100 flex wrap center">
+            <div class="w100 flex wrap">
+                <div class="w25">
+                    <div class="cercleResult flex"></div>
+                </div>
+                <div class="w25">
+                    <div class="cercleResult flex"></div>
+                </div>
+                <div class="w25">
+                    <div class="cercleResult flex"></div>
+                </div>
+                <div class="w25">
+                    <div class="cercleResult flex"></div>
+                </div>
+            </div>
+        </div>`;
+
+
+
+/*-------------------------- Extra ----------------------------*/
+function hasGanado() {
+    const hasGanado = document.getElementById("hasGanado")
+    hasGanado.showModal()
+
+    const intentosTotales = document.getElementById("intentos")
+    intentosTotales.textContent = intento
+    
+}
+
+function gameOver() {
+    const gameOver = document.getElementById("gameOver")
+    gameOver.showModal()
+
+}
+
+function closeModal(id) {
+    const dialog = document.getElementById(id)
+    dialog.close()
+    document.body.classList.remove("remove-scrolling"); 
+}
+
