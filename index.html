@@ -12,7 +12,7 @@
 
 <body class="w100" onload="init()">
 
-    <!-- --------------------------------Extra------------------------------------->
+    <!-- ------------------------------- Ventana emergente final ---------------------------------- -->
     <div id="dialog">
         <dialog id="hasGanado" class="dialog">
             <div>
@@ -22,10 +22,9 @@
                 <button onclick="location.reload()">Volver a jugar</button>
                 <button onclick="closeModal('hasGanado')">Ver los resultados</button>
             </div>
-    
+
             <h3>Número de intentos: <span id="intentos">0</span></h3>
-    
-        
+
             <div id="result-ganado" class="w100 flex wrap center">
                 <div class="w100 flex wrap">
                     <div class="w25">
@@ -42,9 +41,9 @@
                     </div>
                 </div>
             </div>
-        
+
         </dialog>
-    
+
         <dialog id="gameOver" class="dialog">
             <div>
                 <h2>¡Game Over! ¡Has perdido!</h2>
@@ -53,7 +52,7 @@
                 <button onclick="location.reload()">Volver a jugar</button>
                 <button onclick="closeModal('gameOver')">Ver los resultados</button>
             </div>
-    
+
             <h3>Número máximo de intentos superado (10)</h3>
 
             <div id="result-perdido" class="w100 flex wrap center">
@@ -72,10 +71,10 @@
                     </div>
                 </div>
             </div>
-    
+
         </dialog>
     </div>
-    <!-- -------------------------------------------------------------------------->
+    <!-- ------------------------------------------------------------------------------------------- -->
 
     <main class="w100">
         <div class="bloqueado">
@@ -136,7 +135,7 @@
         </div>
 
         <section id="Result" class="flex wrap center">
-<!-- aquí es donde deberemos ir añadiendo filas según el número de intentos.-->
+            <!-- aquí es donde deberemos ir añadiendo filas según el número de intentos.-->
         </section>
 
         <section>
