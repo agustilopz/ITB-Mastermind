@@ -16,10 +16,7 @@ var aciertos = 0;
 
 function init() {
     //1. Genera el código random del master
-    for (let i = 1; i <= MAX_COMBI_COLORES; i++) {
-        let random = numeroRandom(0, COLORS.length - 1)
-        master.push(COLORS[random])
-    }
+    generarCombinacionColores();
     console.log(master)
 
     //2. Crea todas las filas según el número de intentos.
@@ -71,6 +68,21 @@ function numeroRandom(min, max) {
     return numeroRandom;
 }
 
+// Esta función genera la combinación secreta de colores
+function generarCombinacionColores() {
+    for (let i = 1; i <= MAX_COMBI_COLORES; i++) {
+        let random = numeroRandom(0, COLORS.length - 1)
+        master.push(COLORS[random])
+    }
+    // Nos aseguramos de que por lo menos uno de los colores sea diferente al resto
+    let repeticiones = comprobarRepeticiones(master);
+    if(repeticiones>=MAX_COMBI_COLORES-1) {
+        do {
+        master[1]=COLORS[numeroRandom(0, COLORS.length - 1)];
+        }while(master[1]===master[2]);
+    }
+}
+
 
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha
 introducido el usuario.
@@ -78,7 +90,7 @@ Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
     // Limitamos el número de colores repetidos que puede introducir el usuario a a 3.
     let repeticiones = comprobarRepeticiones();
-    if (repeticiones >= 3) {
+    if (repeticiones >= MAX_COMBI_COLORES-1) {
         modificarInfo("No puedes repetir más de 3 veces el mismo color.", "red");
         restablecerValores();
     }
@@ -185,10 +197,10 @@ function restablecerValores() {
 }
 
 // Esta función comprueba las repeticiones en la selección de colores del usuario
-function comprobarRepeticiones() {
+function comprobarRepeticiones(array=userCombi) {
     let repeticiones = 0;
     for (let i = 0; i < MAX_COMBI_COLORES - 1; i++) {
-        if (userCombi[i] === userCombi[i + 1]) {
+        if (array[i] === array[i + 1]) {
             repeticiones++
         }
     }
@@ -230,7 +242,7 @@ function gameOver() {
 function closeModal(id) {
     const dialog = document.getElementById(id);
     dialog.close();
-    document.body.classList.remove("remove-scrolling");
+    document.body.classList.remove("bloquear-scroll");
 }
 
 // Esta función bloqueo el scroll de la página
