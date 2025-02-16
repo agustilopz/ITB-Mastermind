@@ -68,6 +68,32 @@ function numeroRandom(min, max) {
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
+    let repeticiones = 0;
+    for (let i = 0; i <MAX_COMBI_COLORES-1; i++) {
+        //masterElementoPadre.children[i].children[0].style.backgroundColor = master[i]; 
+        /*if 0 ==1
+        if 1 ===2
+        if 2 ===3
+        */
+
+        if(userCombi[i]===userCombi[i+1]) {
+            repeticiones++
+        }
+    }
+    if(repeticiones>=3) {
+        let info = document.getElementById('info');
+        info.textContent = "No puedes repetir más de 3 veces el mismo color.";
+        let colorInfo = info.parentNode
+        colorInfo.style.borderColor = "red";
+        colorInfo.style.backgroundColor = "red";
+        let userInputColor = document.getElementById('combiText');
+        userInputColor.value = "";
+        userCombi.length = 0;
+        aciertos = 0;
+
+    }
+    else {
+    
     if(userCombi.length<4) {
         let info = document.getElementById('info');
         info.textContent = "Tienes que introducir los 4 colores antes de comprobar.";
@@ -174,6 +200,7 @@ function Comprobar() {
     }
 }
 }
+    }
 
 }
 
