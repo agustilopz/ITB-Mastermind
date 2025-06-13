@@ -251,36 +251,3 @@ function bloquearScroll() {
     document.body.classList.add("bloquear-scroll");
 }
 
-
-/** Template con el código HTML que corresponde a cada fila de juego/intento. */
-const ROW_RESULT = `<div class="rowResult w100 flex wrap">
-    <div class="rowUserCombi w75 flex wrap">
-       <div class="w25">
-           <div class="celUserCombi flex"></div>
-       </div>
-       <div class="w25">
-           <div class="celUserCombi flex"></div>
-       </div>
-       <div class="w25">
-           <div class="celUserCombi flex"></div>
-       </div>
-       <div class="w25">
-           <div class="celUserCombi flex"></div>
-       </div>
-    </div>alis/Mastermind_CODIGO
-    <div class="rowCercleResult w25 flex wrap center">
-       <div class="w40 h40">
-            <div class="cercleResult flex"></div>
-       </div>
-       <div class="w40 h40">
-           <div class="cercleResult flex"></div>
-       </div>
-       <div class="w40 h40">
-           <div class="cercleResult flex"></div>
-       </div>
-       <div class="w40 h40">
-           <div class="cercleResult flex"></div>
-       </div>
-    <div>
-</div>`;
-
